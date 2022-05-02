@@ -20,7 +20,7 @@ import cats.effect.Clock
 import cats.effect.IO
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.SharedMetricRegistries
-import org.http4s.Http4sSuite
+import munit.CatsEffectSuite
 import org.http4s.HttpRoutes
 import org.http4s.Request
 import org.http4s.Status
@@ -29,7 +29,7 @@ import org.http4s.metrics.dropwizard.util._
 import org.http4s.server.middleware.Metrics
 import org.http4s.syntax.all._
 
-class DropwizardServerMetricsSuite extends Http4sSuite {
+class DropwizardServerMetricsSuite extends CatsEffectSuite {
   test("register a 2xx response") {
     implicit val clock: Clock[IO] = FakeClock[IO]
     val registry: MetricRegistry = SharedMetricRegistries.getOrCreate("test1")

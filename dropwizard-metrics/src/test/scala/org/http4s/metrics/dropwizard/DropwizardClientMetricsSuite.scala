@@ -21,8 +21,8 @@ import cats.effect.IO
 import cats.syntax.all._
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.SharedMetricRegistries
+import munit.CatsEffectSuite
 import org.http4s.EntityDecoder
-import org.http4s.Http4sSuite
 import org.http4s.HttpApp
 import org.http4s.Request
 import org.http4s.client.Client
@@ -36,7 +36,7 @@ import java.io.IOException
 import java.util.Arrays
 import java.util.concurrent.TimeoutException
 
-class DropwizardClientMetricsSuite extends Http4sSuite {
+class DropwizardClientMetricsSuite extends CatsEffectSuite {
   private val client = Client.fromHttpApp[IO](HttpApp[IO](stub))
 
   test("A http client with a dropwizard metrics middleware should register a 2xx response") {
