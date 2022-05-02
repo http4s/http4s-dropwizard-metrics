@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 
 /** [[MetricsOps]] algebra capable of recording Dropwizard metrics
   *
-  * For example, the following code would wrap a [[org.http4s.HttpRoutes]] with a [[org.http4s.server.middleware.Metrics]]
+  * For example, the following code would wrap a [[org.http4s.HttpRoutes]] with a `org.http4s.server.middleware.Metrics`
   * that records metrics to a given metric registry.
   * {{{
   * import org.http4s.client.middleware.Metrics
@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit
   * val meteredRoutes = Metrics[IO](Dropwizard(registry, "server"))(testRoutes)
   * }}}
   *
-  * Analogously, the following code would wrap a [[org.http4s.client.Client]] with a [[org.http4s.client.middleware.Metrics]]
+  * Analogously, the following code would wrap a `org.http4s.client.Client` with a `org.http4s.client.middleware.Metrics`
   * that records metrics to a given Metric Registry, classifying the metrics by HTTP method.
   * {{{
   * import org.http4s.client.metrics.core.Metrics
