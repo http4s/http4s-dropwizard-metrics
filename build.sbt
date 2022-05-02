@@ -18,9 +18,9 @@ val munitCatsEffectVersion = "1.0.7"
 lazy val dropwizardMetrics = project
   .in(file("dropwizard-metrics"))
   .settings(
-    name := "http4s-scala-xml",
-    description := "Provides scala-xml codecs for http4s",
-    startYear := Some(2014),
+    name := "http4s-dropwizard-metrics",
+    description := "Support for Dropwizard Metrics",
+    startYear := Some(2018),
     libraryDependencies ++= Seq(
       "org.http4s" %%% "http4s-core" % http4sVersion,
       "io.dropwizard.metrics" % "metrics-core" % dropwizardMetricsVersion,
