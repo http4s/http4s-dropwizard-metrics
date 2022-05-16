@@ -18,36 +18,43 @@ package com.example.http4s.blaze
 
 import cats.effect._
 import com.codahale.metrics.{Timer => _, _}
-import com.example.http4s.ExampleService
+import com.comcast.ip4s._
 import org.http4s.HttpApp
-import org.http4s.blaze.server.BlazeServerBuilder
-import org.http4s.implicits._
+import org.http4s.HttpRoutes
+import org.http4s.dsl.io._
+import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.metrics.dropwizard._
 import org.http4s.server.HttpMiddleware
 import org.http4s.server.Router
 import org.http4s.server.Server
 import org.http4s.server.middleware.Metrics
 
-class BlazeMetricsExample extends IOApp {
+class EmberMetricsExample extends IOApp {
   override def run(args: List[String]): IO[ExitCode] =
-    BlazeMetricsExampleApp.resource[IO].use(_ => IO.never).as(ExitCode.Success)
+    EmberMetricsExampleApp.resource.use(_ => IO.never).as(ExitCode.Success)
 }
 
-object BlazeMetricsExampleApp {
-  def httpApp[F[_]: Async]: HttpApp[F] = {
+object EmberMetricsExampleApp {
+  def httpApp: HttpApp[IO] = {
     val metricsRegistry: MetricRegistry = new MetricRegistry()
-    val metrics: HttpMiddleware[F] = Metrics[F](Dropwizard(metricsRegistry, "server"))
+    val metrics: HttpMiddleware[IO] = Metrics[IO](Dropwizard(metricsRegistry, "server"))
+
+    val apiService = HttpRoutes.of[IO] { case GET -> Root / "api" =>
+      Ok()
+    }
+
     Router(
-      "/http4s" -> metrics(ExampleService[F].routes),
-      "/http4s/metrics" -> metricsService[F](metricsRegistry),
+      "/http4s" -> metrics(apiService),
+      "/http4s/metrics" -> metricsService[IO](metricsRegistry),
     ).orNotFound
   }
 
-  def resource[F[_]: Async]: Resource[F, Server] = {
-    val app = httpApp[F]
-    BlazeServerBuilder[F]
-      .bindHttp(8080)
+  def resource: Resource[IO, Server] = {
+    val app = httpApp
+    EmberServerBuilder
+      .default[IO]
+      .withPort(port"8080")
       .withHttpApp(app)
-      .resource
+      .build
   }
 }

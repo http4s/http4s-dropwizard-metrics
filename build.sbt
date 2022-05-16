@@ -41,7 +41,7 @@ lazy val example = project
   .settings(
     startYear := Some(2013),
     libraryDependencies ++= Seq(
-      "org.http4s" %%% "http4s-blaze-server" % http4sVersion,
+      "org.http4s" %%% "http4s-ember-server" % http4sVersion,
       "org.http4s" %%% "http4s-dsl" % http4sVersion,
     ),
   )
