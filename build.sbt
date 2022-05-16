@@ -8,7 +8,8 @@ val Scala213 = "2.13.8"
 ThisBuild / crossScalaVersions := Seq("2.12.15", Scala213, "3.1.1")
 ThisBuild / scalaVersion := Scala213
 
-lazy val root = project.in(file(".")).aggregate(dropwizardMetrics).enablePlugins(NoPublishPlugin)
+lazy val root =
+  project.in(file(".")).aggregate(dropwizardMetrics, example).enablePlugins(NoPublishPlugin)
 
 val http4sVersion = "0.23.11"
 val dropwizardMetricsVersion = "4.2.9"
@@ -33,6 +34,18 @@ lazy val dropwizardMetrics = project
       "org.http4s" %%% "http4s-dsl" % http4sVersion % Test,
     ),
   )
+
+lazy val example = project
+  .in(file("example"))
+  .dependsOn(dropwizardMetrics)
+  .settings(
+    startYear := Some(2013),
+    libraryDependencies ++= Seq(
+      "org.http4s" %%% "http4s-ember-server" % http4sVersion,
+      "org.http4s" %%% "http4s-dsl" % http4sVersion,
+    ),
+  )
+  .enablePlugins(NoPublishPlugin)
 
 lazy val docs = project
   .in(file("site"))
