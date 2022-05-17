@@ -36,7 +36,7 @@ class EmberMetricsExample extends IOApp {
 
 object EmberMetricsExampleApp {
   def httpApp: HttpApp[IO] = {
-    val metricsRegistry: MetricRegistry = new MetricRegistry()
+    val metricsRegistry: MetricRegistry = new MetricRegistry
     val metrics: HttpMiddleware[IO] = Metrics[IO](Dropwizard(metricsRegistry, "server"))
 
     val apiService = HttpRoutes.of[IO] { case GET -> Root / "api" =>
