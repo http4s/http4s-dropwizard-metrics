@@ -12,7 +12,7 @@ lazy val root =
   project.in(file(".")).aggregate(dropwizardMetrics, example).enablePlugins(NoPublishPlugin)
 
 val http4sVersion = "0.23.12"
-val dropwizardMetricsVersion = "4.2.9"
+val dropwizardMetricsVersion = "4.2.10"
 val munitVersion = "0.7.29"
 val munitCatsEffectVersion = "1.0.7"
 
