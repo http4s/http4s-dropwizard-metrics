@@ -11,7 +11,7 @@ ThisBuild / scalaVersion := Scala213
 lazy val root =
   project.in(file(".")).aggregate(dropwizardMetrics, example).enablePlugins(NoPublishPlugin)
 
-val http4sVersion = "0.23.15"
+val http4sVersion = "0.23.16"
 val dropwizardMetricsVersion = "4.2.12"
 val munitVersion = "0.7.29"
 val munitCatsEffectVersion = "1.0.7"
@@ -28,7 +28,6 @@ lazy val dropwizardMetrics = project
       "io.dropwizard.metrics" % "metrics-json" % dropwizardMetricsVersion,
       "org.scalameta" %%% "munit-scalacheck" % munitVersion % Test,
       "org.typelevel" %%% "munit-cats-effect-3" % munitCatsEffectVersion % Test,
-      "org.http4s" %%% "http4s-laws" % http4sVersion % Test,
       "org.http4s" %%% "http4s-server" % http4sVersion % Test,
       "org.http4s" %%% "http4s-client" % http4sVersion % Test,
       "org.http4s" %%% "http4s-dsl" % http4sVersion % Test,
